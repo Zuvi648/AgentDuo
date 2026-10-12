@@ -1,0 +1,80 @@
+{
+  "name": "agent-duo",
+  "productName": "Agent Duo",
+  "version": "0.1.0",
+  "description": "Desktop-App, die Codex CLI (Planung, Review) und Claude Code (Implementierung) koordiniert",
+  "author": "Agent Duo contributors",
+  "private": true,
+  "main": "dist/main.js",
+  "scripts": {
+    "build:main": "esbuild src/main/main.ts src/main/preload.ts --bundle --platform=node --format=cjs --external:electron --outdir=dist --sourcemap",
+    "build:renderer": "vite build",
+    "build": "npm run build:main && npm run build:renderer",
+    "start": "npm run build && electron .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "e2e": "npm run build:e2e && node dist/e2e.js",
+    "build:e2e": "esbuild scripts/e2e.ts --bundle --platform=node --format=cjs --outfile=dist/e2e.js",
+    "dist:mac": "npm run build && electron-builder --mac --arm64 --publish never",
+    "dist:win": "npm run build && electron-builder --win --x64 --publish never",
+    "icon": "electron scripts/make-icon.cjs"
+  },
+  "build": {
+    "appId": "dev.agentduo.app",
+    "productName": "Agent Duo",
+    "files": [
+      "dist/**/*",
+      "!dist/e2e.js*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "dir"
+      ],
+      "category": "public.app-category.developer-tools",
+      "identity": "-",
+      "hardenedRuntime": false,
+      "icon": "build/icon.png"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "artifactName": "Agent-Duo-${version}-${os}-${arch}.${ext}"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "electron": "^44.7.0",
+    "electron-builder": "^26.15.3",
+    "esbuild": "^0.28.2",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4",
+    "vitest": "^5.0.4"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Zuvi648/AgentDuo.git"
+  },
+  "homepage": "https://github.com/Zuvi648/AgentDuo"
+}
