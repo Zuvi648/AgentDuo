@@ -31,7 +31,7 @@ Lade die passende Datei unter [Releases](../../releases) herunter:
 
 Die Builds sind **nicht signiert**. macOS: beim ersten Start Rechtsklick auf die App → „Öffnen“.
 Windows: bei der SmartScreen-Meldung „Weitere Informationen“ → „Trotzdem ausführen“.
-Der Windows-Build wird automatisch gebaut, ist aber bisher nicht von Hand getestet.
+Der Windows-Installer ist bisher **nicht auf Windows getestet** – Rückmeldungen sind willkommen.
 
 ## Was die App kann
 
